@@ -6,11 +6,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import jodd.json.JsonSerializer;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class Controller implements Initializable {
+    JsonSerializer serializer = new JsonSerializer();
+
+    public static File f = new File("contacts.json");
+
 
     //the three inputs from the user
     @FXML
@@ -26,15 +34,25 @@ public class Controller implements Initializable {
 
     ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
-    public void addItem() {
+    public void addItem() throws Exception {
         //takes the input and then creates the list
         //it also checks to see that if any of the lists are empty then you will not be able to add the name
-        if(!namelist.getText().equals("") && !phonelist.getText().equals("") && !emaillist.getText().equals("")) {
-            contacts.add(new Contact(namelist.getText(), phonelist.getText(), emaillist.getText()));
-            namelist.setText("");
-            phonelist.setText("");
-            emaillist.setText("");
-        }
+        //if (!namelist.getText().equals("") && !phonelist.getText().equals("") && !emaillist.getText().equals("")) {
+        contacts.add(new Contact(namelist.getText(), phonelist.getText(), emaillist.getText()));
+        namelist.setText("");
+        phonelist.setText("");
+        emaillist.setText("");
+        String json = serializer.serialize(contacts);
+        //creates a file writer object
+        FileWriter fw = new FileWriter(f);
+        //writes the json to the file path that has been created
+        fw.write(json);
+        //closes the file
+        fw.close();
+
+        //}
+
+
     }
 
     public void removeItem() {
@@ -48,4 +66,5 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         list.setItems(contacts);
     }
+
 }
