@@ -47,8 +47,6 @@ public class Controller implements Initializable {
             writeToFile();
             //readFromFile();
         }
-
-
     }
 
     public void writeToFile() throws Exception {
