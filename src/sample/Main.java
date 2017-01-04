@@ -14,8 +14,8 @@ public class Main extends Application {
         primaryStage.setTitle("Contacts Desktop");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
+        Controller control = new Controller();
     }
-
 
     public static void main(String[] args) {
         launch(args);
