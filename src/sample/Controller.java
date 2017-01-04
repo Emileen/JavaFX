@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    //the three inputs from the user
     @FXML
     TextField namelist;
 
@@ -26,6 +27,8 @@ public class Controller implements Initializable {
     ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
     public void addItem() {
+        //takes the input and then creates the list
+        //it also checks to see that if any of the lists are empty then you will not be able to add the name
         if(!namelist.getText().equals("") && !phonelist.getText().equals("") && !emaillist.getText().equals("")) {
             contacts.add(new Contact(namelist.getText(), phonelist.getText(), emaillist.getText()));
             namelist.setText("");
@@ -35,6 +38,7 @@ public class Controller implements Initializable {
     }
 
     public void removeItem() {
+        // will remove the item from the list
         Contact item = (Contact) list.getSelectionModel().getSelectedItem();
         contacts.remove(item);
         System.out.println("removeItem");
